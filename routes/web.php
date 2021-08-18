@@ -13,10 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('Esta es la url raiz');
-// });
-
-Route::get('products', function () {
-    return view('Listado de Productos');
+Route::get('/', function () {
+    return 'Esta es la url raiz';
 });
+
+Route::get('/products', function () {
+    return ('Listado de Productos');
+});
+
+Route::get('/tasks', [App\Http\Controllers\TaskController::class, 'index'])->name('tasks');
+Route::post('/tasks', [App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
+
+Route::get('/tasks/edit/{id}', [App\Http\Controllers\TaskController::class, 'editView'])->name('task.edit_view');
+Route::post('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'edit'])->name('task.edit');
+
+
+Route::put('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'update'])->name('task.update');
+Route::delete('/tasks/{id}', [App\Http\Controllers\TaskController::class, 'destroy'])->name('task.destroy');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes();
